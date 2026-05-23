@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Patitas al Hogar – Adopción de Mascotas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --verde: #2D6A4F;
+      --verde-claro: #52B788;
+      --verde-suave: #D8F3DC;
+      --naranja: #E07A5F;
+      --naranja-suave: #FFF1EE;
+      --crema: #FEFAE0;
+      --texto: #1A1A2E;
+      --texto-suave: #555;
+      --blanco: #FFFFFF;
+      --radio: 16px;
+      --sombra: 0 4px 24px rgba(0,0,0,0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--texto);
+      background: var(--blanco);
+      line-height: 1.6;
+    }
+
+    h1, h2, h3 { font-family: 'Playfair Display', serif; line-height: 1.2; }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ===== HEADER ===== */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid #e8ede9;
+      padding: 0 5%;
+    }
+
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 70px; max-width: 1200px; margin: 0 auto;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem; font-weight: 900; color: var(--verde);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .logo span { font-size: 1.8rem; }
+
+    .nav-links { display: flex; list-style: none; gap: 2rem; }
+    .nav-links a { font-size: 0.95rem; font-weight: 500; color: var(--texto-suave); transition: color 0.2s; }
+    .nav-links a:hover { color: var(--verde); }
+
+    .btn-primary {
+      background: var(--verde); color: white;
+      padding: 0.6rem 1.4rem; border-radius: 50px;
+      font-weight: 600; font-size: 0.9rem;
+      transition: background 0.2s, transform 0.1s;
+      border: none; cursor: pointer; display: inline-block;
+    }
+    .btn-primary:hover { background: #1f5c3a; transform: translateY(-1px); }
+
+    .btn-secondary {
+      background: transparent; color: var(--verde);
+      padding: 0.6rem 1.4rem; border-radius: 50px;
+      font-weight: 600; font-size: 0.9rem;
+      border: 2px solid var(--verde); cursor: pointer;
+      display: inline-block; transition: all 0.2s;
+    }
+    .btn-secondary:hover { background: var(--verde); color: white; }
+
+    .hamburger { display: none; font-size: 1.5rem; cursor: pointer; background: none; border: none; }
+
+    /* ===== HERO ===== */
+    .hero {
+      background: linear-gradient(135deg, #e8f5e9 0%, #d8f3dc 50%, #fff9f0 100%);
+      padding: 80px 5% 60px;
+      display: flex; align-items: center; gap: 3rem;
+      min-height: 90vh; max-width: 100%;
+    }
+
+    .hero-content { flex: 1; max-width: 580px; }
+
+    .hero-badge {
+      display: inline-block; background: var(--naranja-suave); color: var(--naranja);
+      padding: 0.3rem 1rem; border-radius: 50px;
+      font-size: 0.85rem; font-weight: 600; margin-bottom: 1.5rem;
+    }
+
+    .hero h1 { font-size: clamp(2.4rem, 5vw, 3.8rem); color: var(--texto); margin-bottom: 1.2rem; }
+    .hero h1 em { font-style: normal; color: var(--verde); }
+    .hero p { font-size: 1.1rem; color: var(--texto-suave); margin-bottom: 2rem; max-width: 480px; }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .hero-image { flex: 1; display: flex; justify-content: center; position: relative; }
+
+    .hero-img-container {
+      width: 480px; height: 480px;
+      border-radius: 50% 50% 50% 30%;
+      overflow: hidden; position: relative;
+      box-shadow: 0 20px 60px rgba(45,106,79,0.2);
+    }
+    .hero-img-container img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+
+    .hero-stat {
+      position: absolute; background: white;
+      border-radius: 14px; padding: 0.8rem 1.2rem;
+      box-shadow: var(--sombra); font-weight: 600;
+    }
+    .hero-stat.left { bottom: 60px; left: -10px; }
+    .hero-stat.top { top: 40px; right: -10px; }
+    .hero-stat .num { font-size: 1.4rem; color: var(--verde); font-family: 'Playfair Display', serif; }
+    .hero-stat .label { font-size: 0.75rem; color: var(--texto-suave); font-weight: 400; }
+
+    /* ===== SECCIONES GENERALES ===== */
+    section { padding: 80px 5%; }
+    .section-max { max-width: 1200px; margin: 0 auto; }
+
+    .section-tag {
+      font-size: 0.8rem; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--verde-claro); margin-bottom: 0.5rem;
+    }
+    .section-title { font-size: clamp(1.8rem, 3.5vw, 2.8rem); margin-bottom: 1rem; }
+    .section-sub { font-size: 1.05rem; color: var(--texto-suave); max-width: 520px; }
+
+    /* ===== SOBRE NOSOTROS ===== */
+    .sobre-nosotros { background: var(--blanco); }
+
+    .sobre-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+
+    .sobre-img { border-radius: var(--radio); overflow: hidden; height: 420px; position: relative; }
+    .sobre-img img { width: 100%; height: 100%; object-fit: cover; }
+    .sobre-img::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+      height: 40%; background: linear-gradient(transparent, rgba(45,106,79,0.4));
+      pointer-events: none;
+    }
+
+    .sobre-content p { color: var(--texto-suave); margin-bottom: 1rem; font-size: 1rem; }
+
+    .valores { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem; }
+
+    .valor-card {
+      background: var(--verde-suave); border-radius: 12px; padding: 1rem 1.2rem;
+      display: flex; align-items: flex-start; gap: 0.8rem;
+    }
+    .valor-icon { font-size: 1.4rem; }
+    .valor-card h4 { font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 0.95rem; }
+    .valor-card p { font-size: 0.85rem; margin: 0; }
+
+    /* ===== MASCOTAS ===== */
+    .mascotas { background: var(--crema); }
+
+    .mascotas-header {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: 3rem; flex-wrap: wrap; gap: 1rem;
+    }
+
+    .mascotas-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+
+    .mascota-card {
+      background: white; border-radius: 20px; overflow: hidden;
+      box-shadow: var(--sombra); transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .mascota-card:hover { transform: translateY(-8px); box-shadow: 0 16px 48px rgba(0,0,0,0.12); }
+
+    .mascota-img { height: 260px; overflow: hidden; position: relative; }
+    .mascota-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.4s;
+    }
+    .mascota-card:hover .mascota-img img { transform: scale(1.05); }
+
+    .mascota-badge {
+      position: absolute; top: 14px; right: 14px;
+      background: var(--naranja); color: white;
+      font-size: 0.75rem; font-weight: 700;
+      padding: 0.3rem 0.8rem; border-radius: 50px;
+    }
+
+    .mascota-info { padding: 1.4rem 1.5rem; }
+    .mascota-info h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 0.3rem; }
+    .mascota-meta { font-size: 0.85rem; color: var(--verde-claro); font-weight: 600; margin-bottom: 0.8rem; }
+    .mascota-info p { font-size: 0.92rem; color: var(--texto-suave); margin-bottom: 1.2rem; }
+    .mascota-info .btn-primary { width: 100%; text-align: center; font-size: 0.9rem; }
+
+    /* ===== BENEFICIOS ===== */
+    .beneficios { background: var(--verde); }
+    .beneficios .section-tag { color: var(--verde-claro); }
+    .beneficios .section-title { color: white; }
+    .beneficios .section-sub { color: rgba(255,255,255,0.75); }
+
+    .beneficios-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem; }
+
+    .beneficio-card {
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 18px; padding: 2rem 1.5rem; text-align: center; transition: background 0.25s;
+    }
+    .beneficio-card:hover { background: rgba(255,255,255,0.18); }
+    .beneficio-icon { font-size: 2.5rem; margin-bottom: 1rem; display: block; }
+    .beneficio-card h3 { font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 1.1rem; color: white; margin-bottom: 0.6rem; }
+    .beneficio-card p { font-size: 0.92rem; color: rgba(255,255,255,0.7); }
+
+    /* ===== FORMULARIO ===== */
+    .contacto { background: white; }
+
+    .contacto-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+
+    .contacto-info p { color: var(--texto-suave); margin-bottom: 2rem; }
+    .info-items { display: flex; flex-direction: column; gap: 1.2rem; }
+
+    .info-item { display: flex; align-items: center; gap: 1rem; font-size: 0.95rem; color: var(--texto-suave); }
+    .info-item .icon {
+      background: var(--verde-suave); width: 44px; height: 44px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0;
+    }
+
+    .form-card { background: var(--crema); border-radius: 24px; padding: 2.5rem; }
+
+    .form-group { margin-bottom: 1.4rem; }
+    .form-group label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.5rem; color: var(--texto); }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%; padding: 0.8rem 1rem;
+      border: 1.5px solid #dde5dd; border-radius: 10px;
+      font-family: 'DM Sans', sans-serif; font-size: 0.95rem;
+      background: white; color: var(--texto); transition: border-color 0.2s; outline: none;
+    }
+    .form-group input:focus, .form-group textarea:focus { border-color: var(--verde); }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .form-card .btn-primary { width: 100%; padding: 0.9rem; font-size: 1rem; border-radius: 12px; }
+
+    /* ===== FOOTER ===== */
+    footer { background: var(--texto); color: rgba(255,255,255,0.8); padding: 50px 5% 30px; }
+
+    .footer-grid {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem;
+      padding-bottom: 2.5rem; border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .footer-brand .logo { color: white; margin-bottom: 1rem; }
+    .footer-brand p { font-size: 0.9rem; color: rgba(255,255,255,0.55); line-height: 1.7; }
+
+    .footer-col h4 {
+      font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.9rem;
+      color: white; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 1px;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.6rem; }
+    .footer-col ul li a { font-size: 0.88rem; color: rgba(255,255,255,0.55); transition: color 0.2s; }
+    .footer-col ul li a:hover { color: var(--verde-claro); }
+
+    .social-links { display: flex; gap: 0.8rem; margin-top: 1.2rem; }
+    .social-link {
+      width: 38px; height: 38px; background: rgba(255,255,255,0.08); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem; font-weight: 700; transition: background 0.2s; color: white;
+    }
+    .social-link:hover { background: var(--verde); }
+
+    .footer-bottom {
+      max-width: 1200px; margin: 1.5rem auto 0;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.82rem; color: rgba(255,255,255,0.35); flex-wrap: wrap; gap: 0.5rem;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      .hero { flex-direction: column; text-align: center; padding: 60px 5%; min-height: auto; }
+      .hero-content { max-width: 100%; }
+      .hero-btns { justify-content: center; }
+      .hero-image { width: 100%; }
+      .hero-img-container { width: 300px; height: 300px; }
+      .hero-stat.left { left: -5px; bottom: 30px; }
+      .hero-stat.top { right: -5px; top: 20px; }
+      .sobre-grid { grid-template-columns: 1fr; }
+      .mascotas-grid { grid-template-columns: 1fr 1fr; }
+      .beneficios-grid { grid-template-columns: 1fr 1fr; }
+      .contacto-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 620px) {
+      .nav-links { display: none; }
+      .hamburger { display: block; }
+      .mascotas-grid { grid-template-columns: 1fr; }
+      .beneficios-grid { grid-template-columns: 1fr; }
+      .valores { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .mascotas-header { flex-direction: column; align-items: flex-start; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hero-content { animation: fadeUp 0.7s ease both; }
+    .hero-image { animation: fadeUp 0.7s 0.2s ease both; }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <nav>
+      <div class="logo"><span>🐾</span> Patitas al Hogar</div>
+      <ul class="nav-links">
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#mascotas">Mascotas</a></li>
+        <li><a href="#beneficios">¿Por qué adoptar?</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+      <a href="#contacto" class="btn-primary">Adoptar ahora</a>
+      <button class="hamburger" aria-label="Menú">☰</button>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <span class="hero-badge">🏠 Dale un hogar, da amor</span>
+      <h1>Cada mascota merece un <em>hogar lleno</em> de amor</h1>
+      <p>Conectamos animales rescatados con familias amorosas. Más de 1,200 mascotas han encontrado su hogar gracias a ti.</p>
+      <div class="hero-btns">
+        <a href="#mascotas" class="btn-primary">Ver mascotas disponibles</a>
+        <a href="#nosotros" class="btn-secondary">Conócenos</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <div class="hero-img-container">
+        <!-- Foto del héroe: gatita con collar rosado (eleni-trapp) -->
+        <img src="hero.jpg" alt="Gatita con collar rosado buscando hogar" loading="eager" />
+      </div>
+      <div class="hero-stat left">
+        <div class="num">1,200+</div>
+        <div class="label">Mascotas adoptadas</div>
+      </div>
+      <div class="hero-stat top">
+        <div class="num">98%</div>
+        <div class="label">Familias satisfechas</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE NOSOTROS -->
+  <section class="sobre-nosotros" id="nosotros">
+    <div class="section-max sobre-grid">
+      <div class="sobre-img">
+        <!-- Foto de "sobre nosotros": photo-1553688738 -->
+        <img src="sobre.avif" alt="Voluntarios cuidando mascotas" />
+      </div>
+      <div class="sobre-content">
+        <p class="section-tag">Sobre nosotros</p>
+        <h2 class="section-title">Rescatamos vidas, una patita a la vez</h2>
+        <p>Patitas al Hogar es una organización sin fines de lucro fundada en 2015 con una misión clara: dar una segunda oportunidad a los animales que han sido abandonados o maltratados.</p>
+        <p>Nuestro equipo de voluntarios trabaja incansablemente para rescatar, rehabilitar y encontrar hogares amorosos para perros y gatos de todas las edades y tamaños.</p>
+        <div class="valores">
+          <div class="valor-card">
+            <span class="valor-icon">❤️</span>
+            <div>
+              <h4>Misión</h4>
+              <p>Rescatar y rehabilitar animales en situación vulnerable.</p>
+            </div>
+          </div>
+          <div class="valor-card">
+            <span class="valor-icon">🌱</span>
+            <div>
+              <h4>Visión</h4>
+              <p>Un mundo donde ningún animal viva en las calles.</p>
+            </div>
+          </div>
+          <div class="valor-card">
+            <span class="valor-icon">🤝</span>
+            <div>
+              <h4>Compromiso</h4>
+              <p>Apoyamos a las familias en todo el proceso de adopción.</p>
+            </div>
+          </div>
+          <div class="valor-card">
+            <span class="valor-icon">🏥</span>
+            <div>
+              <h4>Salud</h4>
+              <p>Todas las mascotas van vacunadas y desparasitadas.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MASCOTAS EN ADOPCIÓN -->
+  <section class="mascotas" id="mascotas">
+    <div class="section-max">
+      <div class="mascotas-header">
+        <div>
+          <p class="section-tag">Adopción</p>
+          <h2 class="section-title">Mascotas que buscan hogar</h2>
+          <p class="section-sub">Conoce a estos adorables amigos que esperan una familia llena de amor.</p>
+        </div>
+        <a href="#contacto" class="btn-secondary">Contactar</a>
+      </div>
+      <div class="mascotas-grid">
+
+        <!-- Mascota 1 -->
+        <div class="mascota-card">
+          <div class="mascota-img">
+            <img src="mascota1.avif" alt="Mascota Firulais" />
+            <span class="mascota-badge">Disponible</span>
+          </div>
+          <div class="mascota-info">
+            <h3>Firulais</h3>
+            <p class="mascota-meta">🐕 Perro · 2 años · Mestizo</p>
+            <p>Firulais es un perrote súper juguetón y cariñoso. Le encanta correr y aprender trucos nuevos. Ideal para familias activas con niños.</p>
+            <a href="#contacto" class="btn-primary">Adoptar a Firulais</a>
+          </div>
+        </div>
+
+        <!-- Mascota 2 -->
+        <div class="mascota-card">
+          <div class="mascota-img">
+            <img src="mascota2.avif" alt="Mascota Luna" />
+            <span class="mascota-badge">Disponible</span>
+          </div>
+          <div class="mascota-info">
+            <h3>Luna</h3>
+            <p class="mascota-meta">🐈 Gata · 3 años · Mixta</p>
+            <p>Luna es una gatita tranquila y elegante. Adora los mimos y se lleva bien con otros gatos. Perfecta para hogares tranquilos.</p>
+            <a href="#contacto" class="btn-primary">Adoptar a Luna</a>
+          </div>
+        </div>
+
+        <!-- Mascota 3 -->
+        <div class="mascota-card">
+          <div class="mascota-img">
+            <img src="mascota3.avif" alt="Mascota Max" />
+            <span class="mascota-badge">Disponible</span>
+          </div>
+          <div class="mascota-info">
+            <h3>Max</h3>
+            <p class="mascota-meta">🐕 Perro · 5 años · Labrador</p>
+            <p>Max es un veterano leal y tranquilo. Ya está entrenado y le encanta pasear. El compañero perfecto para adultos y personas mayores.</p>
+            <a href="#contacto" class="btn-primary">Adoptar a Max</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFICIOS -->
+  <section class="beneficios" id="beneficios">
+    <div class="section-max">
+      <p class="section-tag">¿Por qué adoptar?</p>
+      <h2 class="section-title">Adoptar cambia vidas, incluida la tuya</h2>
+      <p class="section-sub">Adoptar no solo salva a un animal — transforma tu vida y crea un vínculo inolvidable.</p>
+      <div class="beneficios-grid">
+        <div class="beneficio-card">
+          <span class="beneficio-icon">🐾</span>
+          <h3>Salvas una vida</h3>
+          <p>Cada adopción libera espacio en el refugio para rescatar a más animales en situación de calle.</p>
+        </div>
+        <div class="beneficio-card">
+          <span class="beneficio-icon">💚</span>
+          <h3>Mejor salud mental</h3>
+          <p>Estudios demuestran que convivir con mascotas reduce el estrés, la ansiedad y la soledad.</p>
+        </div>
+        <div class="beneficio-card">
+          <span class="beneficio-icon">🏠</span>
+          <h3>Familia completa</h3>
+          <p>Una mascota aporta alegría, compañía incondicional y amor genuino a cada miembro del hogar.</p>
+        </div>
+        <div class="beneficio-card">
+          <span class="beneficio-icon">💰</span>
+          <h3>Costo accesible</h3>
+          <p>Adoptando pagas mucho menos que comprando. Además, las mascotas ya vienen con vacunas incluidas.</p>
+        </div>
+        <div class="beneficio-card">
+          <span class="beneficio-icon">🌍</span>
+          <h3>Impacto social</h3>
+          <p>Contribuyes a reducir la sobrepoblación animal y apoyás una causa que beneficia a toda la comunidad.</p>
+        </div>
+        <div class="beneficio-card">
+          <span class="beneficio-icon">🩺</span>
+          <h3>Mascota sana</h3>
+          <p>Todas nuestras mascotas son revisadas por veterinarios, vacunadas y desparasitadas antes de la adopción.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMULARIO DE CONTACTO -->
+  <section class="contacto" id="contacto">
+    <div class="section-max contacto-grid">
+      <div class="contacto-info">
+        <p class="section-tag">Contáctanos</p>
+        <h2 class="section-title">¿Listo para adoptar?</h2>
+        <p>Completa el formulario y nuestro equipo se pondrá en contacto contigo en menos de 24 horas para guiarte en el proceso de adopción.</p>
+        <div class="info-items">
+          <div class="info-item">
+            <span class="icon">📍</span>
+            <div>
+              <strong>Dirección</strong><br>
+              <span>5a Avenida 8-00, Zona 10, Guatemala City</span>
+            </div>
+          </div>
+          <div class="info-item">
+            <span class="icon">📞</span>
+            <div>
+              <strong>Teléfono</strong><br>
+              <span>+502 5555-1234</span>
+            </div>
+          </div>
+          <div class="info-item">
+            <span class="icon">✉️</span>
+            <div>
+              <strong>Correo</strong><br>
+              <span>adopciones@patitasalhogar.org</span>
+            </div>
+          </div>
+          <div class="info-item">
+            <span class="icon">🕐</span>
+            <div>
+              <strong>Horario</strong><br>
+              <span>Lunes a Sábado, 9:00 AM – 5:00 PM</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-card">
+        <form onsubmit="handleSubmit(event)">
+          <div class="form-group">
+            <label for="nombre">Nombre completo *</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre completo" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Correo electrónico *</label>
+            <input type="email" id="email" name="email" placeholder="tu@correo.com" required />
+          </div>
+          <div class="form-group">
+            <label for="mascota">Mascota de interés</label>
+            <select id="mascota" name="mascota">
+              <option value="">Selecciona una mascota</option>
+              <option value="firulais">Firulais (Perro, 2 años)</option>
+              <option value="luna">Luna (Gata, 3 años)</option>
+              <option value="max">Max (Perro, 5 años)</option>
+              <option value="otro">Otra mascota</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="mensaje">Mensaje *</label>
+            <textarea id="mensaje" name="mensaje" placeholder="Cuéntanos sobre ti, tu hogar y por qué quieres adoptar..." required></textarea>
+          </div>
+          <button type="submit" class="btn-primary">Enviar solicitud de adopción 🐾</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo"><span>🐾</span> Patitas al Hogar</div>
+        <p>Organización sin fines de lucro dedicada al rescate y adopción responsable de mascotas desde 2015. Juntos hacemos la diferencia.</p>
+        <div class="social-links">
+          <a href="#" class="social-link" aria-label="Facebook">FB</a>
+          <a href="#" class="social-link" aria-label="Instagram">IG</a>
+          <a href="#" class="social-link" aria-label="Twitter">TW</a>
+          <a href="#" class="social-link" aria-label="YouTube">YT</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Navegación</h4>
+        <ul>
+          <li><a href="#nosotros">Sobre nosotros</a></li>
+          <li><a href="#mascotas">Mascotas</a></li>
+          <li><a href="#beneficios">¿Por qué adoptar?</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Adopción</h4>
+        <ul>
+          <li><a href="#mascotas">Perros disponibles</a></li>
+          <li><a href="#mascotas">Gatos disponibles</a></li>
+          <li><a href="#contacto">Proceso de adopción</a></li>
+          <li><a href="#contacto">Requisitos</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contacto</h4>
+        <ul>
+          <li><a href="tel:+50255551234">+502 5555-1234</a></li>
+          <li><a href="mailto:adopciones@patitasalhogar.org">adopciones@</a></li>
+          <li><a href="#">Zona 10, Guatemala City</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Patitas al Hogar. Todos los derechos reservados.</span>
+      <span>Hecho con ❤️ para Software IV</span>
+    </div>
+  </footer>
+
+  <script>
+    // Menú hamburguesa
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    let menuOpen = false;
+
+    hamburger.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      if (menuOpen) {
+        navLinks.style.cssText = `
+          display: flex; flex-direction: column;
+          position: absolute; top: 70px; left: 0; right: 0;
+          background: white; padding: 1.5rem 5%;
+          border-bottom: 1px solid #e8ede9; z-index: 99; gap: 1.2rem;
+        `;
+      } else {
+        navLinks.style.display = 'none';
+      }
+    });
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.style.display = 'none';
+        menuOpen = false;
+      });
+    });
+
+    // Formulario
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('button[type="submit"]');
+      btn.textContent = '✅ ¡Solicitud enviada! Nos contactaremos pronto.';
+      btn.style.background = '#1f5c3a';
+      btn.disabled = true;
+      e.target.reset();
+      setTimeout(() => {
+        btn.textContent = 'Enviar solicitud de adopción 🐾';
+        btn.style.background = '';
+        btn.disabled = false;
+      }, 4000);
+    }
+
+    // Animaciones al hacer scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.mascota-card, .beneficio-card, .valor-card').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
